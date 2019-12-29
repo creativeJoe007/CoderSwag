@@ -22,6 +22,7 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
                 "drawable", context.packageName)
 
             categoryImage.setImageResource(resourceID)
+            categoryImage.contentDescription = "Images for ${category.title} category"
             categoryName.text = category.title
 
             itemView.setOnClickListener {
