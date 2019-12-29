@@ -11,7 +11,7 @@ import joe.creative.coderswag.Model.Product
 import joe.creative.coderswag.R
 
 
-class ProductRecycleAdapter(val context: Context, val products: List<Product>) : RecyclerView.Adapter<ProductRecycleAdapter.Holder>() {
+class ProductRecycleAdapter(val context: Context, val products: List<Product>, val itemClicked: (Product) -> Unit) : RecyclerView.Adapter<ProductRecycleAdapter.Holder>() {
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var productImage = itemView.findViewById<ImageView>(R.id.productImage)
         var productName = itemView.findViewById<TextView>(R.id.productName)
@@ -25,6 +25,10 @@ class ProductRecycleAdapter(val context: Context, val products: List<Product>) :
             productImage.contentDescription = "Images for products named ${product.title}"
             productName.text = product.title
             productPrice.text = product.price
+
+            itemView.setOnClickListener{
+                itemClicked(product)
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package joe.creative.coderswag.Controller
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import joe.creative.coderswag.Adapters.ProductRecycleAdapter
 import joe.creative.coderswag.R
 import joe.creative.coderswag.Services.DataService
 import joe.creative.coderswag.Utilities.EXTRA_CATEGORY
+import joe.creative.coderswag.Utilities.EXTRA_PRODUCT
 import kotlinx.android.synthetic.main.activity_products.*
 
 class ProductsActivity : AppCompatActivity() {
@@ -19,7 +21,11 @@ class ProductsActivity : AppCompatActivity() {
         val categoryType = intent.getStringExtra(EXTRA_CATEGORY)
         println(categoryType)
 
-        adapter = ProductRecycleAdapter(this, DataService.getProducts(categoryType))
+        adapter = ProductRecycleAdapter(this, DataService.getProducts(categoryType)) {
+            val productDetailsIntent = Intent(this, ProductDetailsActivity::class.java)
+            productDetailsIntent.putExtra(EXTRA_PRODUCT, it)
+            startActivity(productDetailsIntent)
+        }
         productListView.adapter = adapter
 
         val orientation = resources.configuration.orientation
